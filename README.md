@@ -1,10 +1,10 @@
 # Order System API
 
-**Status:** In Development 🚧
+**Status:** In Development 
 
 This is a REST API for managing users and orders, built with **Spring Boot 3**, **Spring Data JPA**, **H2 Database**, and **Lombok**.
 
-> ⚠️ Note: This project is currently under development. More features, endpoints, and database relationships will be added as development progresses.
+>  Note: This project is currently under development. More features, endpoints, and database relationships will be added as development progresses.
 
 ---
 
