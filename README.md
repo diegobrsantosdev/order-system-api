@@ -60,8 +60,8 @@ Password: root
 
 Author
 
-Diego Br Santos
+Diego Melo Bezerra dos Santos
 
-Email: diegobrrsant@gmail.com
+Email: diegobrsantosdev@gmail.com
 
 GitHub: github.com/diegobrsantosdev
