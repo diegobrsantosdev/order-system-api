@@ -1,6 +1,5 @@
 package com.diegobrsantosdev.order_system_api.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,11 +11,11 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
 @EqualsAndHashCode(of = {"id"})
-@ToString(exclude = {"products"})
-@Table(name = "tb_categories")
-public class Category implements Serializable {
+@ToString(exclude = {"categories"})
+@NoArgsConstructor
+@Table(name = "tb_products")
+public class Product implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -26,13 +25,20 @@ public class Category implements Serializable {
     private Long id;
 
     private String name;
+    private String description;
+    private Double price;
+    private String imgUrl;
 
     @Transient
     @Setter(AccessLevel.NONE)
-    private Set<Product> products = new HashSet<>();
+    private Set<Category> categories = new HashSet<>();
 
-    public Category(Long id, String name) {
+    public Product(Long id, String name, String description, Double price, String imgUrl) {
         this.id = id;
         this.name = name;
+        this.description = description;
+        this.price = price;
+        this.imgUrl = imgUrl;
     }
+
 }

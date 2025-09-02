@@ -14,7 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+@ToString(exclude = {"orders"})
 @EqualsAndHashCode(of = "id")
 
 public class User implements Serializable {
@@ -33,8 +33,8 @@ public class User implements Serializable {
     private String password;
 
     @JsonIgnore
-    @Getter
     @OneToMany(mappedBy = "client")
+    @Setter(AccessLevel.NONE)
     private List<Order> orders = new ArrayList<>();
 
     // Construtor without 'orders'
