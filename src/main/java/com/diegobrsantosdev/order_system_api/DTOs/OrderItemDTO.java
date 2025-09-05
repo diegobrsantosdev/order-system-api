@@ -10,10 +10,12 @@ public class OrderItemDTO {
     private Integer quantity;
     private Double price;
     private ProductDTO product;
+    private Double subTotal;
 
     public OrderItemDTO(OrderItem entity) {
         this.quantity = entity.getQuantity();
         this.price = entity.getPrice();
         this.product = new ProductDTO(entity.getProduct());
+        this.subTotal = entity.getSubTotal();
     }
 }

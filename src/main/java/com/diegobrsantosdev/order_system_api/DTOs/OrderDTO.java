@@ -17,14 +17,22 @@ public class OrderDTO {
     private String orderStatus; // Enum convertido para String
     private UserDTO client;
     private List<OrderItemDTO> items;
+    private PaymentDTO payment;
+    private Double total;
 
     public OrderDTO(Order entity) {
         this.id = entity.getId();
         this.moment = entity.getMoment();
         this.orderStatus = entity.getOrderStatus().name();
         this.client = new UserDTO(entity.getClient());
-        this.items = entity.getItems().stream()
+        this.items = entity.getItems()
+                .stream()
                 .map(OrderItemDTO::new)
                 .collect(Collectors.toList());
+        this.total = entity.getTotal();
+
+        if (entity.getPayment() != null) {
+            this.payment = new PaymentDTO(entity.getPayment());
+        }
     }
 }
