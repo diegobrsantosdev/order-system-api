@@ -27,6 +27,7 @@ public class OrderItemPk implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "product_id")
+    @JsonIgnore
     private Product product;
 
 

@@ -1,5 +1,6 @@
 package com.diegobrsantosdev.order_system_api.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,6 +30,11 @@ public class Product implements Serializable {
     private Double price;
     private String imgUrl;
 
+    @OneToMany(mappedBy = "id.product")
+    @Setter(AccessLevel.NONE)
+    @JsonIgnore
+    private Set<OrderItem> items = new HashSet<>();
+
     @ManyToMany
     @JoinTable(name = "tb_products_categories", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
     @Setter(AccessLevel.NONE)
@@ -40,6 +46,15 @@ public class Product implements Serializable {
         this.description = description;
         this.price = price;
         this.imgUrl = imgUrl;
+    }
+
+    @JsonIgnore
+    public Set<Order> getOrders() {
+        Set<Order> set = new HashSet<>();
+        for (OrderItem x : items) {
+            set.add(x.getOrder());
+        }
+        return set;
     }
 
 }
