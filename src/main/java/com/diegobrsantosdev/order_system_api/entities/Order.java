@@ -2,12 +2,16 @@ package com.diegobrsantosdev.order_system_api.entities;
 
 import com.diegobrsantosdev.order_system_api.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -33,6 +37,11 @@ public class Order implements Serializable {
     @ManyToOne
     @JoinColumn(name = "client_id")
     private User client;
+
+    @OneToMany(mappedBy = "id.order")
+    @Setter(AccessLevel.NONE)
+    private Set<OrderItem> items = new HashSet<>();
+
 
     // Custom constructor accepting OrderStatus
     public Order(Long id, Instant moment, OrderStatus orderStatus, User client) {
