@@ -1,5 +1,6 @@
 package com.diegobrsantosdev.order_system_api.controllers;
 
+import com.diegobrsantosdev.order_system_api.DTOs.CategoryDTO;
 import com.diegobrsantosdev.order_system_api.entities.Category;
 import com.diegobrsantosdev.order_system_api.entities.Order;
 import com.diegobrsantosdev.order_system_api.services.CategoryService;
@@ -20,15 +21,17 @@ public class CategoryController {
     private final CategoryService service;
 
     @GetMapping
-    public ResponseEntity<List<Category>> findAll(){
-        List<Category> list = service.findAll();
+    public ResponseEntity<List<CategoryDTO>> findAll() {
+        List<CategoryDTO> list = service.findAll()
+                .stream()
+                .map(CategoryDTO::new)
+                .toList();
         return ResponseEntity.ok().body(list);
     }
 
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<Category> findById(@PathVariable Long id){
+    @GetMapping("/{id}")
+    public ResponseEntity<CategoryDTO> findById(@PathVariable Long id) {
         Category obj = service.findById(id);
-        return ResponseEntity.ok().body(obj);
+        return ResponseEntity.ok().body(new CategoryDTO(obj));
     }
-
 }

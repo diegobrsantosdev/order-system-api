@@ -32,7 +32,6 @@ public class Product implements Serializable {
 
     @OneToMany(mappedBy = "id.product")
     @Setter(AccessLevel.NONE)
-    @JsonIgnore
     private Set<OrderItem> items = new HashSet<>();
 
     @ManyToMany
@@ -48,7 +47,6 @@ public class Product implements Serializable {
         this.imgUrl = imgUrl;
     }
 
-    @JsonIgnore
     public Set<Order> getOrders() {
         Set<Order> set = new HashSet<>();
         for (OrderItem x : items) {

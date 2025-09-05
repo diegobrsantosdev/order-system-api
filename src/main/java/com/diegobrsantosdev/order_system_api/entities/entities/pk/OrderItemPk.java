@@ -22,7 +22,6 @@ public class OrderItemPk implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
-    @JsonIgnore
     private Order order;
 
     @ManyToOne
