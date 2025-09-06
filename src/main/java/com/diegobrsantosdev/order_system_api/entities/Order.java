@@ -42,9 +42,6 @@ public class Order implements Serializable {
     @Setter(AccessLevel.NONE)
     private Set<OrderItem> items = new HashSet<>();
 
-    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Payment payment;
-
 
     // Custom constructor accepting OrderStatus
     public Order(Long id, Instant moment, OrderStatus orderStatus, User client) {
