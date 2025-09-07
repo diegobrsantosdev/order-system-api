@@ -1,5 +1,6 @@
 package com.diegobrsantosdev.order_system_api.services;
 
+import com.diegobrsantosdev.order_system_api.DTOs.UserDTO;
 import com.diegobrsantosdev.order_system_api.entities.User;
 import com.diegobrsantosdev.order_system_api.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,18 @@ public class UserService {
 
     public void delete(Long id){
         repository.deleteById(id);
+    }
+
+    public User update(Long id, User obj) {
+        User entity = repository.getReferenceById(id);
+        updateData(entity,obj);
+        return repository.save(entity);
+    }
+
+    private void updateData(User entity, User obj) {
+        entity.setName(obj.getName());
+        entity.setEmail(obj.getEmail());
+        entity.setPhone(obj.getPhone());
     }
 
 }
