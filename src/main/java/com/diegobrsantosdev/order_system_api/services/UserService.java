@@ -1,5 +1,6 @@
 package com.diegobrsantosdev.order_system_api.services;
 
+import com.diegobrsantosdev.order_system_api.DTOs.PasswordDTO;
 import com.diegobrsantosdev.order_system_api.DTOs.UserDTO;
 import com.diegobrsantosdev.order_system_api.entities.User;
 import com.diegobrsantosdev.order_system_api.repositories.UserRepository;
@@ -42,6 +43,15 @@ public class UserService {
         entity.setName(obj.getName());
         entity.setEmail(obj.getEmail());
         entity.setPhone(obj.getPhone());
+    }
+
+    public void updatePassword(Long id, String oldPassword, String newPassword) {
+        User user = repository.getReferenceById(id);
+        if (!user.getPassword().equals(oldPassword)) {
+            throw new RuntimeException("Senha antiga incorreta"); //provisório
+        }
+        user.setPassword(newPassword);
+        repository.save(user);
     }
 
 }

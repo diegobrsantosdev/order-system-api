@@ -1,4 +1,5 @@
 package com.diegobrsantosdev.order_system_api.controllers;
+import com.diegobrsantosdev.order_system_api.DTOs.PasswordDTO;
 import com.diegobrsantosdev.order_system_api.DTOs.UserDTO;
 import com.diegobrsantosdev.order_system_api.entities.User;
 import com.diegobrsantosdev.order_system_api.services.UserService;
@@ -52,5 +53,11 @@ public class UserController {
         User obj = service.update(id,objDTO.toEntity());
         UserDTO updatedDTO = new UserDTO(obj);
         return ResponseEntity.ok().body(updatedDTO);
+    }
+
+    @PutMapping("/{id}/password")
+    public ResponseEntity<Void> updatePassword(@PathVariable Long id, @RequestBody PasswordDTO passwordDTO) {
+        service.updatePassword(id, passwordDTO.getOldPassword(), passwordDTO.getNewPassword());
+        return ResponseEntity.noContent().build();
     }
 }
