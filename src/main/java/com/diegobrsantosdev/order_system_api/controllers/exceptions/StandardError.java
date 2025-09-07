@@ -1,0 +1,28 @@
+package com.diegobrsantosdev.order_system_api.controllers.exceptions;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.Instant;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class StandardError implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
+    private Instant timestamp;
+    private Integer status;
+    private String error;
+    private String path;
+    private String message;
+
+}

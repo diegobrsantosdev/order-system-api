@@ -4,6 +4,7 @@ import com.diegobrsantosdev.order_system_api.DTOs.PasswordDTO;
 import com.diegobrsantosdev.order_system_api.DTOs.UserDTO;
 import com.diegobrsantosdev.order_system_api.entities.User;
 import com.diegobrsantosdev.order_system_api.repositories.UserRepository;
+import com.diegobrsantosdev.order_system_api.services.exceptions.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,7 @@ public class UserService {
 
     public User findById(Long id){
         Optional<User> obj = repository.findById(id);
-        return obj.orElse(null); //criar exceção personalizada depois.
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public User insert(User obj){
@@ -48,7 +49,7 @@ public class UserService {
     public void updatePassword(Long id, String oldPassword, String newPassword) {
         User user = repository.getReferenceById(id);
         if (!user.getPassword().equals(oldPassword)) {
-            throw new RuntimeException("Senha antiga incorreta"); //provisório
+            throw new RuntimeException("Incorrect old password"); //provisório
         }
         user.setPassword(newPassword);
         repository.save(user);
