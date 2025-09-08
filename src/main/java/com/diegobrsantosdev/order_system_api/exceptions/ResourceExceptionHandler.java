@@ -26,4 +26,14 @@ public class ResourceExceptionHandler {
         StandardError err = new StandardError(Instant.now(),status.value(),error,e.getMessage(),request.getRequestURI());
         return ResponseEntity.status(status).body(err);
     }
+
+    @ExceptionHandler(IncorrectPasswordException.class)
+    public ResponseEntity<StandardError> incorrectPassword(IncorrectPasswordException e, HttpServletRequest request){
+    String error = "Incorrect password";
+    HttpStatus status = HttpStatus.BAD_REQUEST;
+    StandardError err = new StandardError(Instant.now(),status.value(),error,e.getMessage(),request.getRequestURI());
+    return ResponseEntity.status(status).body(err);
+
+    }
+
 }
