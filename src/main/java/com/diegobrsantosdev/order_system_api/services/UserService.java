@@ -1,11 +1,10 @@
 package com.diegobrsantosdev.order_system_api.services;
-
-import com.diegobrsantosdev.order_system_api.DTOs.PasswordDTO;
-import com.diegobrsantosdev.order_system_api.DTOs.UserDTO;
 import com.diegobrsantosdev.order_system_api.entities.User;
 import com.diegobrsantosdev.order_system_api.repositories.UserRepository;
-import com.diegobrsantosdev.order_system_api.services.exceptions.ResourceNotFoundException;
+import com.diegobrsantosdev.order_system_api.exceptions.DatabaseException;
+import com.diegobrsantosdev.order_system_api.exceptions.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,7 +30,14 @@ public class UserService {
     }
 
     public void delete(Long id){
-        repository.deleteById(id);
+        if (!repository.existsById(id)) {
+            throw new ResourceNotFoundException(id);
+        }
+        try {
+            repository.deleteById(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new DatabaseException(e.getMessage());
+        }
     }
 
     public User update(Long id, User obj) {

@@ -1,4 +1,4 @@
-package com.diegobrsantosdev.order_system_api.controllers.exceptions;
+package com.diegobrsantosdev.order_system_api.exceptions;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;

@@ -1,5 +1,4 @@
 package com.diegobrsantosdev.order_system_api.entities;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 

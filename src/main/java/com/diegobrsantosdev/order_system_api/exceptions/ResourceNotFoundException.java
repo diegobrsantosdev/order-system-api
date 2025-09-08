@@ -1,7 +1,11 @@
-package com.diegobrsantosdev.order_system_api.services.exceptions;
+package com.diegobrsantosdev.order_system_api.exceptions;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.io.Serial;
 
+@ResponseStatus(HttpStatus.NOT_FOUND)
 public class ResourceNotFoundException extends RuntimeException{
     @Serial
     private static final long serialVersionUID = 1L;
@@ -9,9 +13,6 @@ public class ResourceNotFoundException extends RuntimeException{
     public ResourceNotFoundException(Object id) {
         super("Resource not found. Id " + id);
     }
-
-
-
 
 }
 
