@@ -4,7 +4,8 @@
 ### Descrição
 API REST para gerenciamento de usuários, produtos, categorias e pedidos.
 Desenvolvida em Java 17 com Spring Boot, JPA/Hibernate, e camada de segurança robusta com **Spring Security** (autenticação e autorização).
-O sistema segue boas práticas de arquitetura (camadas, DTOs, tratamento centralizado de exceções) e oferece cobertura de testes para os principais serviços e controllers.
+O sistema segue boas práticas de arquitetura (camadas, DTOs, tratamento centralizado de exceções) e oferece cobertura de testes para os principais serviços e controllers utilizando JUnit 5 e Mockito.
+
 ### Status
 **Em desenvolvimento**
 
@@ -59,6 +60,9 @@ Tratamento centralizado e personalizado de erros/exceções
 
 _(Diagrama visual pode ser adicionado em breve)_
 ### Endpoints Principais
+
+Swagger: http://localhost:8080/swagger-ui/index.html
+
 #### Usuários (`/users`)
 
 | Método | Endpoint | Descrição | Auth |
@@ -124,7 +128,7 @@ diegobrsantosdev@gmail.com
 ### Description
 REST API for managing users, products, categories, and orders.
 Developed with Java 17, Spring Boot, JPA/Hibernate, and robust security using **Spring Security** (authentication and authorization).
-The system follows best practices for layered architecture, uses DTOs, centralized exception handling, and includes tests for main services/controllers.
+The system follows best practices for layered architecture, uses DTOs, centralized exception handling, and includes tests for main services/controllers using JUnit 5 and Mockito.
 ### Status
 **In development**
 
@@ -179,6 +183,9 @@ Centralized and custom error handling
 
 _(Visual diagram may be added soon)_
 ### Main Endpoints
+
+Swagger: http://localhost:8080/swagger-ui/index.html
+
 #### Users (`/users`)
 
 | Method | Endpoint | Description | Auth |
