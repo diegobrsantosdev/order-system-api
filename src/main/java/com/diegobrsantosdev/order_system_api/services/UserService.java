@@ -6,9 +6,8 @@ import com.diegobrsantosdev.order_system_api.exceptions.DatabaseException;
 import com.diegobrsantosdev.order_system_api.exceptions.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.security.InvalidParameterException;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +16,8 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository repository;
+    private final PasswordEncoder passwordEncoder;
+
 
     public List<User> findAll(){
         return repository.findAll();
@@ -24,10 +25,11 @@ public class UserService {
 
     public User findById(Long id){
         Optional<User> obj = repository.findById(id);
-        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
+        return obj.orElseThrow(() -> new ResourceNotFoundException("User not found. Id: " + id));
     }
 
-    public User insert(User obj){
+    public User insert(User obj) {
+        obj.setPassword(passwordEncoder.encode(obj.getPassword()));
         return repository.save(obj);
     }
 
@@ -44,7 +46,7 @@ public class UserService {
 
     public User update(Long id, User obj) {
         User entity = repository.findById(id)
-                        .orElseThrow(() -> new ResourceNotFoundException(id));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found. Id: " + id));
         updateData(entity,obj);
         return repository.save(entity);
     }
@@ -58,11 +60,12 @@ public class UserService {
     public void updatePassword(Long id, String oldPassword, String newPassword) {
         User user = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(id));
-        if (!user.getPassword().equals(oldPassword)) {
+        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
             throw new IncorrectPasswordException();
         }
-        user.setPassword(newPassword);
+        user.setPassword(passwordEncoder.encode(newPassword));
         repository.save(user);
+
     }
 
 }

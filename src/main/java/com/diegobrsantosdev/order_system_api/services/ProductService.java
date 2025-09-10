@@ -2,6 +2,7 @@ package com.diegobrsantosdev.order_system_api.services;
 
 import com.diegobrsantosdev.order_system_api.entities.Category;
 import com.diegobrsantosdev.order_system_api.entities.Product;
+import com.diegobrsantosdev.order_system_api.exceptions.ResourceNotFoundException;
 import com.diegobrsantosdev.order_system_api.repositories.CategoryRepository;
 import com.diegobrsantosdev.order_system_api.repositories.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,7 @@ public class ProductService {
 
     public Product findById(Long id){
         Optional<Product> obj = repository.findById(id);
-        return obj.orElse(null); //criar exceção personalizada depois.
+        return obj.orElseThrow(() -> new ResourceNotFoundException("Product not found. Id: " + id));
     }
 
 }

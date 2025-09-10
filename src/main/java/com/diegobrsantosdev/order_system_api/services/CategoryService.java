@@ -2,6 +2,7 @@ package com.diegobrsantosdev.order_system_api.services;
 
 import com.diegobrsantosdev.order_system_api.entities.Category;
 import com.diegobrsantosdev.order_system_api.entities.Order;
+import com.diegobrsantosdev.order_system_api.exceptions.ResourceNotFoundException;
 import com.diegobrsantosdev.order_system_api.repositories.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class CategoryService {
 
     public Category findById(Long id){
         Optional<Category> obj = repository.findById(id);
-        return obj.orElse(null); //criar exceção personalizada depois.
+        return obj.orElseThrow(() -> new ResourceNotFoundException("Category not found. Id: " + id));
     }
 
 }

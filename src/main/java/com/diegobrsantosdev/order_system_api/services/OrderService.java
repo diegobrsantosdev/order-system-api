@@ -2,6 +2,7 @@ package com.diegobrsantosdev.order_system_api.services;
 
 import com.diegobrsantosdev.order_system_api.entities.Order;
 
+import com.diegobrsantosdev.order_system_api.exceptions.ResourceNotFoundException;
 import com.diegobrsantosdev.order_system_api.repositories.OrderRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -21,8 +22,8 @@ public class OrderService {
         return repository.findAll();
     }
 
-    public Order findById(Long id){
+    public Order findById(Long id) {
         Optional<Order> obj = repository.findById(id);
-        return obj.orElse(null); //criar exceção personalizada depois.
+        return obj.orElseThrow(() -> new ResourceNotFoundException("Order not found. Id: " + id));
     }
 }

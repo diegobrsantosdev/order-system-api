@@ -1,15 +1,17 @@
 package com.diegobrsantosdev.order_system_api.controllers;
-import com.diegobrsantosdev.order_system_api.DTOs.PasswordDTO;
-import com.diegobrsantosdev.order_system_api.DTOs.UserDTO;
+import com.diegobrsantosdev.order_system_api.dtos.PasswordDTO;
+import com.diegobrsantosdev.order_system_api.dtos.UserDTO;
+import com.diegobrsantosdev.order_system_api.dtos.UserInsertDTO;
 import com.diegobrsantosdev.order_system_api.entities.User;
 import com.diegobrsantosdev.order_system_api.services.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -25,21 +27,21 @@ public class UserController {
                 .stream()
                 .map(UserDTO::new)
                 .toList();
-        return ResponseEntity.ok().body(list);
+        return ResponseEntity.status(HttpStatus.OK).body(list);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> findById(@PathVariable Long id) {
-        User obj = service.findById(id);
-        return ResponseEntity.ok().body(new UserDTO(obj));
+        User user = service.findById(id);
+        UserDTO dto = new UserDTO(user);
+        return ResponseEntity.status(HttpStatus.OK).body(dto);
     }
 
     @PostMapping
-    public ResponseEntity<UserDTO> insert(@RequestBody UserDTO objDTO) {
-        User obj = service.insert(objDTO.toEntity()); // converte para User e chama service
-        UserDTO savedDTO = new UserDTO(obj); // converte de volta para DTO
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedDTO.getId()).toUri();
-        return ResponseEntity.created(uri).body(savedDTO);
+    public ResponseEntity<UserDTO> insert(@RequestBody @Valid UserInsertDTO dto) {
+        User entity = dto.toEntity();
+        User saved = service.insert(entity);
+        return ResponseEntity.status(HttpStatus.CREATED).body(new UserDTO(saved));
     }
 
     @DeleteMapping("/{id}")
@@ -49,15 +51,17 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> update(@PathVariable Long id, @RequestBody UserDTO objDTO) {
-        User obj = service.update(id,objDTO.toEntity());
-        UserDTO updatedDTO = new UserDTO(obj);
-        return ResponseEntity.ok().body(updatedDTO);
+    public ResponseEntity<UserDTO> update(@PathVariable Long id, @RequestBody @Valid UserDTO dto) {
+        User user = dto.toEntity();
+        User updated = service.update(id, user);
+        UserDTO updatedDTO = new UserDTO(updated);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedDTO);
     }
+
 
     @PutMapping("/{id}/password")
     public ResponseEntity<Void> updatePassword(@PathVariable Long id, @RequestBody PasswordDTO passwordDTO) {
         service.updatePassword(id, passwordDTO.getOldPassword(), passwordDTO.getNewPassword());
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

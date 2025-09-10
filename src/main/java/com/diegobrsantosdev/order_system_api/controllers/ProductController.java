@@ -1,9 +1,7 @@
 package com.diegobrsantosdev.order_system_api.controllers;
 
-import com.diegobrsantosdev.order_system_api.DTOs.ProductDTO;
-import com.diegobrsantosdev.order_system_api.entities.Category;
+import com.diegobrsantosdev.order_system_api.dtos.ProductDTO;
 import com.diegobrsantosdev.order_system_api.entities.Product;
-import com.diegobrsantosdev.order_system_api.services.CategoryService;
 import com.diegobrsantosdev.order_system_api.services.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

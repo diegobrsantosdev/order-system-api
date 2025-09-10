@@ -1,5 +1,5 @@
 package com.diegobrsantosdev.order_system_api.controllers;
-import com.diegobrsantosdev.order_system_api.DTOs.OrderDTO;
+import com.diegobrsantosdev.order_system_api.dtos.OrderDTO;
 import com.diegobrsantosdev.order_system_api.entities.Order;
 import com.diegobrsantosdev.order_system_api.services.OrderService;
 

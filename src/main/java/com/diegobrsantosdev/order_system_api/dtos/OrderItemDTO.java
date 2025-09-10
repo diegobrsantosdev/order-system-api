@@ -1,4 +1,4 @@
-package com.diegobrsantosdev.order_system_api.DTOs;
+package com.diegobrsantosdev.order_system_api.dtos;
 
 import com.diegobrsantosdev.order_system_api.entities.OrderItem;
 import lombok.Getter;

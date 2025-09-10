@@ -1,4 +1,4 @@
-package com.diegobrsantosdev.order_system_api.DTOs;
+package com.diegobrsantosdev.order_system_api.dtos;
 
 import com.diegobrsantosdev.order_system_api.entities.Order;
 import lombok.Getter;
@@ -14,7 +14,7 @@ public class OrderDTO {
 
     private Long id;
     private Instant moment;
-    private String orderStatus; // Enum convertido para String
+    private String orderStatus;
     private UserDTO client;
     private List<OrderItemDTO> items;
     private PaymentDTO payment;
