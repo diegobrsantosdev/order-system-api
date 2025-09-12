@@ -13,7 +13,6 @@ O projeto segue boas práticas de arquitetura (camadas, DTOs, tratamento central
 
 Além disso, o projeto foi conteinerizado com Docker e implantado na AWS via EC2, garantindo portabilidade e escalabilidade.
 
-
 Principais Tecnologias e Bibliotecas
 
 Java 17
@@ -36,12 +35,11 @@ Docker (conteinerização)
 
 AWS EC2 (deploy em nuvem)
 
-
 Estrutura do Projeto
 
 entities – Modelos de domínio: User, Order, Product, Category, OrderItem, Payment
 
-dtos – Data Transfer Objects para abstrair e proteger as entidades nas respostas e requisições (incluindo PasswordDTO para atualização de senha)
+dtos – Data Transfer Objects para abstrair e proteger as entidades nas respostas e requisições (incluindo PasswordDTO)
 
 repositories – Interfaces JPA para persistência e consultas no banco
 
@@ -53,9 +51,6 @@ config – Configurações globais e de segurança
 
 exceptions – Tratamento centralizado e personalizado de erros/exceções
 
-![Postman response](./src/assets/captura30.png)
-
-
 Segurança
 
 Autenticação e Autorização com Spring Security
@@ -65,9 +60,6 @@ Senhas criptografadas (PasswordEncoder)
 Endpoints sensíveis protegidos
 
 Permissão diferenciada por perfil (em desenvolvimento)
-
-![Senhas criptografadas](./src/assets/captura31.png)
-
 
 Relacionamentos das Entidades
 
@@ -81,13 +73,7 @@ Order 1 — 1 Payment (Pagamento é exclusivo e único por pedido)
 
 Product * — * Category (Relação muitos para muitos)
 
-![Diagrama do Domínio](./src/assets/captura25.png)
-
-
 Endpoints Principais
-
-![Endpoints](./src/assets/captura29.png)
-
 
 Testes
 
@@ -96,7 +82,6 @@ Cobertura para controllers e services (JUnit, Mockito)
 Testes unitários validados para User, Order, Product e Category
 
 Simulação de requests e verificações de fluxo de negócio
-
 
 Como Executar Localmente
 1️⃣ Via Java/Maven
@@ -118,8 +103,7 @@ Usuário: root
 
 Senha: root
 
-
-Via Docker
+2️⃣ Via Docker
 
 Build da imagem:
 
@@ -134,7 +118,6 @@ docker run -p 8080:8080 order-system-api
 Acesse Swagger e endpoints via: http://localhost:8080/swagger-ui/index.html
 
 O projeto já foi deployado com sucesso em AWS EC2, mostrando que a aplicação é escalável e pronta para produção.
-
 
 Observações & Aprendizados
 
@@ -191,7 +174,6 @@ Docker (containerization)
 
 AWS EC2 (cloud deployment)
 
-
 Project Structure
 
 entities – Domain models: User, Order, Product, Category, OrderItem, Payment
@@ -208,9 +190,6 @@ config – Global and security configurations
 
 exceptions – Centralized and customized exception handling
 
-![Postman response](./src/assets/captura30.png)
-
-
 Security
 
 Authentication and Authorization with Spring Security
@@ -219,8 +198,7 @@ Passwords encrypted (PasswordEncoder)
 
 Protected sensitive endpoints
 
-![Password Encryption](./src/assets/captura31.png)
-
+Role-based access (in development)
 
 Entity Relationships
 
@@ -234,13 +212,7 @@ Order 1 — 1 Payment (Payment is unique per order)
 
 Product * — * Category (Many-to-many relationship)
 
-![Domain Diagram](./src/assets/captura25.png)
-
-
 Main Endpoints
-
-![Endpoints](./src/assets/captura29.png)
-
 
 Tests
 
@@ -251,7 +223,7 @@ Unit tests for User, Order, Product, and Category
 Simulation of requests and verification of business flows
 
 Running Locally
-Via Java/Maven
+1️⃣ Via Java/Maven
 
 Clone the repository
 
@@ -270,7 +242,7 @@ User: root
 
 Password: root
 
-Via Docker
+2️⃣ Via Docker
 
 Build the image:
 
@@ -285,7 +257,6 @@ docker run -p 8080:8080 order-system-api
 Access Swagger and endpoints via: http://localhost:8080/swagger-ui/index.html
 
 The project has been successfully deployed on AWS EC2, demonstrating that the application is scalable and production-ready.
-
 
 Observations & Learnings
 
