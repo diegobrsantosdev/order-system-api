@@ -51,6 +51,9 @@ Tratamento centralizado e personalizado de erros/exceções
     - Erros bem documentados e mensagens amigáveis para o cliente
 
 ### Relacionamentos das Entidades
+
+![Diagrama do Domínio](./src/assets/captura31.png)
+
 - **User** 1—* **Order** (Um usuário pode possuir vários pedidos)
 - **Order** 1—* **OrderItem** (cada pedido tem vários itens)
 - **OrderItem** *—1 **Product** (um item sempre aponta para um produto)
