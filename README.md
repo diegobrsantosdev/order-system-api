@@ -52,7 +52,7 @@ O projeto também foi conteinerizado com **Docker** e implantado na **AWS EC2**.
 - Endpoints sensíveis protegidos
 - Permissão diferenciada por perfil (em desenvolvimento)
 
-![Senhas criptografadas](./src/assets/captura31.png)
+![Senhas criptografadas](./src/assets/captura25.png)
 
 ---
 
@@ -64,7 +64,7 @@ O projeto também foi conteinerizado com **Docker** e implantado na **AWS EC2**.
 - **Order** 1 — 1 **Payment** (Pagamento exclusivo por pedido)
 - **Product** * — * **Category** (Muitos para muitos)
 
-![Diagrama do Domínio](./src/assets/captura25.png)
+![Diagrama do Domínio](./src/assets/captura31.png)
 
 ---
 
