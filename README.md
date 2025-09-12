@@ -1,252 +1,311 @@
-# Order System API
-[🇧🇷 Versão em Português](#vers%C3%A3o-em-portugu%C3%AAs) | [🇺🇸 English Version](#english-version)
-## 🇧🇷 Versão em Português
-### Descrição
-API REST para gerenciamento de usuários, produtos, categorias e pedidos.
-Desenvolvida em Java 17 com Spring Boot, JPA/Hibernate, e camada de segurança robusta com **Spring Security** (autenticação e autorização).
-O sistema segue boas práticas de arquitetura (camadas, DTOs, tratamento centralizado de exceções) e oferece cobertura de testes para os principais serviços e controllers utilizando JUnit 5 e Mockito.
+Order System API
 
-### Status
-**Em desenvolvimento**
+🇧🇷 Versão em Português
+ | 🇺🇸 English Version
 
-> Novas funcionalidades, endpoints e integrações podem ser acrescentadas a qualquer momento.
-> 
+🇧🇷 Versão em Português
+Descrição
 
-### Principais Tecnologias e Bibliotecas
-- **Java 17**
-- **Spring Boot 3**
-- **Spring Data JPA** (Hibernate)
-- **Spring Security**
-- **Lombok**
-- **Banco de Dados H2** (em memória)
-- **JUnit 5** e **Mockito** (testes)
-- **Maven**
+API REST de um sistema de pedidos para gerenciamento de usuários, produtos, categorias e pedidos.
+Desenvolvida em Java 17 com Spring Boot, JPA/Hibernate, e camada de segurança robusta com Spring Security (autenticação e autorização).
 
-### Estrutura do Projeto
-- **entities**
-Modelos de domínio: User, Order, Product, Category, OrderItem, Payment
-- **dtos**
-Data Transfer Objects para abstrair e proteger as entidades nas respostas e requisições (incluindo **PasswordDTO** para atualização de senha)
-- **repositories**
-Interfaces JPA para persistência e consultas no banco
-- **services**
-Camada de lógica de negócio/validações
-- **controllers**
-Endpoints RESTful organizados por recurso (User, Order, Product, Category)
-- **config**
-Configurações globais e de segurança (ex.: segurança, testes)
-- **exceptions**
-Tratamento centralizado e personalizado de erros/exceções
+O projeto segue boas práticas de arquitetura (camadas, DTOs, tratamento centralizado de exceções) e oferece cobertura de testes para os principais serviços e controllers utilizando JUnit 5 e Mockito.
 
-### Segurança
-- **Autenticação e Autorização com Spring Security**
-    - Senhas criptografadas (PasswordEncoder)
-    - Endpoints sensíveis protegidos
-    - Permissão diferenciada por perfil (em desenvolvimento)
+Além disso, o projeto foi conteinerizado com Docker e implantado na AWS via EC2, garantindo portabilidade e escalabilidade.
 
-- **DTOs para senha**
-    - Atualização segura do password via endpoint próprio e DTO
 
-- **Tratamento padronizado de exceções**
-    - Erros bem documentados e mensagens amigáveis para o cliente
+Principais Tecnologias e Bibliotecas
 
-### Relacionamentos das Entidades
+Java 17
 
-![Diagrama do Domínio](./src/assets/captura31.png)
+Spring Boot 3
 
-- **User** 1—* **Order** (Um usuário pode possuir vários pedidos)
-- **Order** 1—* **OrderItem** (cada pedido tem vários itens)
-- **OrderItem** *—1 **Product** (um item sempre aponta para um produto)
-- **Order** 1—1 **Payment** (pagamento é exclusivo e único por pedido)
-- **Product** _—_ **Category** (relação muitos para muitos)
-- Todos mapeados com JPA/Hibernate usando Collections, PKs compostas, etc.
+Spring Data JPA (Hibernate)
 
-_(Diagrama visual pode ser adicionado em breve)_
-### Endpoints Principais
+Spring Security
 
-Swagger: http://localhost:8080/swagger-ui/index.html
+Lombok
 
-#### Usuários (`/users`)
+Banco de Dados H2 (em memória)
 
-| Método | Endpoint | Descrição | Auth |
-| --- | --- | --- | --- |
-| GET | `/users` | Listar todos os usuários | ✅ |
-| GET | `/users/{id}` | Buscar usuário por ID | ✅ |
-| POST | `/users` | Cadastrar novo usuário | 🚫 |
-| PUT | `/users/{id}` | Atualizar dados do usuário | ✅ |
-| DELETE | `/users/{id}` | Remover usuário | ✅ |
-| PATCH | `/users/{id}/password` | Atualizar senha do usuário | ✅ |
-#### Produtos (`/products`)
+JUnit 5 e Mockito (testes)
 
-| Método | Endpoint | Descrição | Auth |
-| --- | --- | --- | --- |
-| GET | `/products` | Listar todos os produtos | 🚫 |
-| GET | `/products/{id}` | Buscar produto por ID | 🚫 |
-| POST | `/products` | Cadastrar produto | ✅ |
-#### Categorias (`/categories`)
+Maven
 
-| Método | Endpoint | Descrição | Auth |
-| --- | --- | --- | --- |
-| GET | `/categories` | Listar todas as categorias | 🚫 |
-| POST | `/categories` | Cadastrar nova categoria | ✅ |
-#### Pedidos (`/orders`)
+Docker (conteinerização)
 
-| Método | Endpoint | Descrição | Auth |
-| --- | --- | --- | --- |
-| GET | `/orders` | Listar todos os pedidos | ✅ |
-| GET | `/orders/{id}` | Buscar pedido por ID | ✅ |
-| POST | `/orders` | Criar novo pedido | ✅ |
+AWS EC2 (deploy em nuvem)
 
-> ⚠️ Endpoints marcados como `✅` exigem autenticação.
-> ⚠️ Lista pode ser expandida conforme evolui o projeto.
-> 
 
-### Testes
-- **Cobertura para controllers e services** (Junit, Mockito)
-- Testes unitários validados para User, Order, Product e Category
-- Simulação de requests e verificações de fluxo de negócio
+Estrutura do Projeto
 
-### Como Executar Localmente
-1. Clone o repositório
-2. Requisitos: Java 17+, Maven instalado
-3. Execute:
-``` 
-   mvn spring-boot:run
-```
-1. Acesse o banco H2:
-[http://localhost:8080/h2-console](http://localhost:8080/h2-console)
-JDBC URL:
-Usuário: `root` • Senha: `root` `jdbc:h2:mem:testdb`
+entities – Modelos de domínio: User, Order, Product, Category, OrderItem, Payment
 
-### Observações & Aprendizados
-- Utilização de **@JsonIgnore** para evitar loops de serialização em entidades com relacionamentos bidirecionais.
-- Uso de **DTOs** para resposta e requisição, garantindo segurança e desacoplamento das entidades.
-- Tratamento amigável e padronizado de exceções.
+dtos – Data Transfer Objects para abstrair e proteger as entidades nas respostas e requisições (incluindo PasswordDTO para atualização de senha)
 
-### Autor
-**Diego Melo Bezerra dos Santos**
+repositories – Interfaces JPA para persistência e consultas no banco
+
+services – Camada de lógica de negócio/validações
+
+controllers – Endpoints RESTful organizados por recurso (User, Order, Product, Category)
+
+config – Configurações globais e de segurança
+
+exceptions – Tratamento centralizado e personalizado de erros/exceções
+
+![Postman response](./src/assets/captura30.png)
+
+
+Segurança
+
+Autenticação e Autorização com Spring Security
+
+Senhas criptografadas (PasswordEncoder)
+
+Endpoints sensíveis protegidos
+
+Permissão diferenciada por perfil (em desenvolvimento)
+
+![Senhas criptografadas](./src/assets/captura31.png)
+
+
+Relacionamentos das Entidades
+
+User 1 — * Order (Um usuário pode possuir vários pedidos)
+
+Order 1 — * OrderItem (Cada pedido tem vários itens)
+
+OrderItem * — 1 Product (Um item sempre aponta para um produto)
+
+Order 1 — 1 Payment (Pagamento é exclusivo e único por pedido)
+
+Product * — * Category (Relação muitos para muitos)
+
+![Diagrama do Domínio](./src/assets/captura25.png)
+
+
+Endpoints Principais
+
+![Endpoints](./src/assets/captura29.png)
+
+
+Testes
+
+Cobertura para controllers e services (JUnit, Mockito)
+
+Testes unitários validados para User, Order, Product e Category
+
+Simulação de requests e verificações de fluxo de negócio
+
+
+Como Executar Localmente
+1️⃣ Via Java/Maven
+
+Clone o repositório
+
+Requisitos: Java 17+ e Maven instalado
+
+Execute:
+
+mvn spring-boot:run
+
+
+Acesse o banco H2: http://localhost:8080/h2-console
+
+JDBC URL: jdbc:h2:mem:testdb
+
+Usuário: root
+
+Senha: root
+
+
+Via Docker
+
+Build da imagem:
+
+docker build -t order-system-api .
+
+
+Executar o container:
+
+docker run -p 8080:8080 order-system-api
+
+
+Acesse Swagger e endpoints via: http://localhost:8080/swagger-ui/index.html
+
+O projeto já foi deployado com sucesso em AWS EC2, mostrando que a aplicação é escalável e pronta para produção.
+
+
+Observações & Aprendizados
+
+Arquitetura e boas práticas: Aprimoramento do design em camadas, uso de DTOs para proteger entidades e desacoplar camadas.
+
+Tratamento de exceções: Implementação de tratamento centralizado e mensagens claras para o cliente, incluindo erros de autenticação, autorização e validação.
+
+Segurança: Criptografia de senhas, endpoints protegidos, atualização segura de senha via DTO.
+
+Relacionamentos complexos: Mapeamento de relações 1–*, *–1 e – com JPA/Hibernate, incluindo PKs compostas e Collections.
+
+Testes unitários e integração: Cobertura para serviços e controllers com JUnit 5 e Mockito, simulando fluxos de negócio reais.
+
+Conteinerização e deploy em nuvem: Desafios de criar Dockerfile eficiente, configurar ambiente e realizar deploy na AWS EC2.
+
+Aprendizado prático de DevOps: Integração de Spring Boot, Docker e AWS, resolvendo problemas de compatibilidade e configuração de rede.
+
+Autor
+
+Diego Melo Bezerra dos Santos
 diegobrsantosdev@gmail.com
-[GitHub](https://github.com/diegobrsantosdev)
-## 🇺🇸 English Version
-### Description
-REST API for managing users, products, categories, and orders.
-Developed with Java 17, Spring Boot, JPA/Hibernate, and robust security using **Spring Security** (authentication and authorization).
-The system follows best practices for layered architecture, uses DTOs, centralized exception handling, and includes tests for main services/controllers using JUnit 5 and Mockito.
-### Status
-**In development**
 
-> New features, endpoints and integrations will be added as the project evolves.
-> 
+GitHub
 
-### Main Technologies & Libraries
-- **Java 17**
-- **Spring Boot 3**
-- **Spring Data JPA** (Hibernate)
-- **Spring Security**
-- **Lombok**
-- **H2 Database** (in-memory)
-- **JUnit 5** and **Mockito** (testing)
-- **Maven**
+🇺🇸 English Version
+Description
 
-### Project Structure
-- **entities**
-Domain models: User, Order, Product, Category, OrderItem, Payment
-- **dtos**
-Data Transfer Objects for secure & clean API requests/responses (including **PasswordDTO** for password updates)
-- **repositories**
-JPA repositories for persistence and database queries
-- **services**
-Business logic and validations
-- **controllers**
-REST endpoints by resource (User, Order, Product, Category)
-- **config**
-Security and global configuration
-- **exceptions**
-Centralized and custom error handling
+REST API for an order system to manage users, products, categories, and orders.
+Developed with Java 17, Spring Boot, JPA/Hibernate, and a robust security layer using Spring Security (authentication and authorization).
 
-### Security
-- **Authentication & Authorization with Spring Security**
-    - Passwords encrypted (PasswordEncoder)
-    - Sensitive endpoints protected
-    - Role-based permissions (in development)
+The project follows best practices in architecture (layers, DTOs, centralized exception handling) and provides test coverage for main services and controllers using JUnit 5 and Mockito.
 
-- **DTO for password operations**
-    - Secure password updates through dedicated endpoint/DTO
+Additionally, the project was containerized with Docker and deployed on AWS via EC2, ensuring portability and scalability.
 
-- **Standardized Error Handling**
-    - Clear and friendly error responses for clients
+Main Technologies and Libraries
 
-### Entity Relationships
-- **User** 1—* **Order** (One user can have many orders)
-- **Order** 1—* **OrderItem** (Order contains multiple items)
-- **OrderItem** *—1 **Product** (Each item refers to a product)
-- **Order** 1—1 **Payment** (One payment per order)
-- **Product** _—_ **Category** (Many-to-many relation)
-- All mapped with JPA/Hibernate, composite PKs, etc.
+Java 17
 
-_(Visual diagram may be added soon)_
-### Main Endpoints
+Spring Boot 3
 
-Swagger: http://localhost:8080/swagger-ui/index.html
+Spring Data JPA (Hibernate)
 
-#### Users (`/users`)
+Spring Security
 
-| Method | Endpoint | Description | Auth |
-| --- | --- | --- | --- |
-| GET | `/users` | Retrieve all users | ✅ |
-| GET | `/users/{id}` | Retrieve user by ID | ✅ |
-| POST | `/users` | Create new user | 🚫 |
-| PUT | `/users/{id}` | Update user information | ✅ |
-| DELETE | `/users/{id}` | Delete user | ✅ |
-| PATCH | `/users/{id}/password` | Update user password | ✅ |
-#### Products (`/products`)
+Lombok
 
-| Method | Endpoint | Description | Auth |
-| --- | --- | --- | --- |
-| GET | `/products` | Retrieve all products | 🚫 |
-| GET | `/products/{id}` | Retrieve product by ID | 🚫 |
-| POST | `/products` | Create new product | ✅ |
-#### Categories (`/categories`)
+H2 Database (in-memory)
 
-| Method | Endpoint | Description | Auth |
-| --- | --- | --- | --- |
-| GET | `/categories` | Retrieve all categories | 🚫 |
-| POST | `/categories` | Create new category | ✅ |
-#### Orders (`/orders`)
+JUnit 5 and Mockito (testing)
 
-| Method | Endpoint | Description | Auth |
-| --- | --- | --- | --- |
-| GET | `/orders` | Retrieve all orders | ✅ |
-| GET | `/orders/{id}` | Retrieve order by ID | ✅ |
-| POST | `/orders` | Create new order | ✅ |
+Maven
 
-> ⚠️ Endpoints marked with `✅` require authentication.
-> ⚠️ This list may grow as project evolves.
-> 
+Docker (containerization)
 
-### Testing
-- **Controller & Service layer tests** (JUnit, Mockito)
-- Unit tests implemented for User, Order, Product, and Category flows
-- Automated request simulation and business logic validation
+AWS EC2 (cloud deployment)
 
-### How to Run Locally
-1. Clone the repository
-2. Requirements: Java 17+, Maven
-3. Run:
-``` 
-   mvn spring-boot:run
-```
-1. Access H2 Database Console:
-[http://localhost:8080/h2-console](http://localhost:8080/h2-console)
-JDBC URL:
-Username: `root` • Password: `root` `jdbc:h2:mem:testdb`
 
-### Notes & Learnings
-- Use of **@JsonIgnore** to avoid infinite serialization loops in bidirectional entities.
-- **DTOs** for safe and decoupled API requests/responses.
-- Friendly and standardized exception handling.
+Project Structure
 
-### Author
-**Diego Melo Bezerra dos Santos**
+entities – Domain models: User, Order, Product, Category, OrderItem, Payment
+
+dtos – Data Transfer Objects to abstract and protect entities in requests/responses (including PasswordDTO)
+
+repositories – JPA interfaces for database persistence and queries
+
+services – Business logic/validation layer
+
+controllers – RESTful endpoints organized by resource (User, Order, Product, Category)
+
+config – Global and security configurations
+
+exceptions – Centralized and customized exception handling
+
+![Postman response](./src/assets/captura30.png)
+
+
+Security
+
+Authentication and Authorization with Spring Security
+
+Passwords encrypted (PasswordEncoder)
+
+Protected sensitive endpoints
+
+![Password Encryption](./src/assets/captura31.png)
+
+
+Entity Relationships
+
+User 1 — * Order (A user can have multiple orders)
+
+Order 1 — * OrderItem (Each order has multiple items)
+
+OrderItem * — 1 Product (An item always points to a product)
+
+Order 1 — 1 Payment (Payment is unique per order)
+
+Product * — * Category (Many-to-many relationship)
+
+![Domain Diagram](./src/assets/captura25.png)
+
+
+Main Endpoints
+
+![Endpoints](./src/assets/captura29.png)
+
+
+Tests
+
+Coverage for controllers and services (JUnit, Mockito)
+
+Unit tests for User, Order, Product, and Category
+
+Simulation of requests and verification of business flows
+
+Running Locally
+Via Java/Maven
+
+Clone the repository
+
+Requirements: Java 17+ and Maven installed
+
+Run:
+
+mvn spring-boot:run
+
+
+Access H2 database: http://localhost:8080/h2-console
+
+JDBC URL: jdbc:h2:mem:testdb
+
+User: root
+
+Password: root
+
+Via Docker
+
+Build the image:
+
+docker build -t order-system-api .
+
+
+Run the container:
+
+docker run -p 8080:8080 order-system-api
+
+
+Access Swagger and endpoints via: http://localhost:8080/swagger-ui/index.html
+
+The project has been successfully deployed on AWS EC2, demonstrating that the application is scalable and production-ready.
+
+
+Observations & Learnings
+
+Architecture and Best Practices: Improved layered design, use of DTOs to protect entities and decouple layers.
+
+Exception Handling: Implemented centralized error handling with clear messages for the client, including authentication, authorization, and validation errors.
+
+Security: Password encryption, protected endpoints, and secure password updates via DTO.
+
+Complex Relationships: Mapped 1–*, *–1, and – relationships with JPA/Hibernate, including composite PKs and Collections.
+
+Unit and Integration Testing: Coverage for services and controllers using JUnit 5 and Mockito, simulating real business flows.
+
+Containerization and Cloud Deployment: Challenges creating an efficient Dockerfile, configuring the environment, and deploying on AWS EC2.
+
+Practical DevOps Learning: Integration of Spring Boot, Docker, and AWS, solving compatibility and network configuration issues.
+
+Author
+
+Diego Melo Bezerra dos Santos
 diegobrsantosdev@gmail.com
-[GitHub](https://github.com/diegobrsantosdev)
+
+GitHub
