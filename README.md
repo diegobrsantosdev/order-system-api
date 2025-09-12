@@ -41,6 +41,9 @@ O projeto também foi conteinerizado com **Docker** e implantado na **AWS EC2**.
 - **config:** Configurações globais e de segurança
 - **exceptions:** Tratamento centralizado e personalizado de erros
 
+---
+
+### Postman example
 ![Postman response](./src/assets/captura30.png)
 
 ---
@@ -131,7 +134,7 @@ O projeto também foi conteinerizado com **Docker** e implantado na **AWS EC2**.
 
 - **Diego Melo Bezerra dos Santos**
 - [diegobrsantosdev@gmail.com](mailto:diegobrsantosdev@gmail.com)
-- [GitHub](https://github.com/seuusuario)
+- [GitHub](https://github.com/diegobrsantosdev)
 
 ---
 
@@ -139,11 +142,11 @@ O projeto também foi conteinerizado com **Docker** e implantado na **AWS EC2**.
 
 ### Description
 
-REST API for an order system to manage users, products, categories, and orders.  
-Developed with **Java 17**, **Spring Boot**, **JPA/Hibernate**, and a robust security layer using **Spring Security** (authentication and authorization).
+REST API for an order management system enabling user, product, category, and order management.  
+Developed in **Java 17** with **Spring Boot**, **JPA/Hibernate**, and a robust security layer using **Spring Security** (authentication and authorization).
 
-Follows best architectural practices (layers, DTOs, centralized exception handling) and provides test coverage for main services and controllers using **JUnit 5** and **Mockito**.  
-Containerized with **Docker** and deployed on **AWS EC2**, ensuring portability and scalability.
+The project follows best architecture practices (layers, DTOs, centralized exception handling) and provides services/controllers test coverage with **JUnit 5** and **Mockito**.  
+It is also containerized with **Docker** and deployed to **AWS EC2**.
 
 ---
 
@@ -155,7 +158,7 @@ Containerized with **Docker** and deployed on **AWS EC2**, ensuring portability 
 - Spring Security
 - Lombok
 - H2 Database (in-memory)
-- JUnit 5 and Mockito (testing)
+- JUnit 5 & Mockito (testing)
 - Maven
 - Docker (containerization)
 - AWS EC2 (cloud deployment)
@@ -164,26 +167,29 @@ Containerized with **Docker** and deployed on **AWS EC2**, ensuring portability 
 
 ### Project Structure
 
-- **entities:** Domain models (User, Order, Product, Category, OrderItem, Payment)
-- **dtos:** Data Transfer Objects for requests/responses (including PasswordDTO)
-- **repositories:** JPA interfaces for database persistence
-- **services:** Business logic and validations
-- **controllers:** RESTful endpoints per resource
+- **entities:** Domain models - User, Order, Product, Category, OrderItem, Payment
+- **dtos:** Data Transfer Objects for request/response abstraction (includes PasswordDTO for password update)
+- **repositories:** JPA interfaces for persistence and queries
+- **services:** Business logic and validations layer
+- **controllers:** Resource-based REST endpoints
 - **config:** Global and security configurations
-- **exceptions:** Centralized and customized exception handling
+- **exceptions:** Centralized and customized error handling
 
+---
+
+### Postman example
 ![Postman response](./src/assets/captura30.png)
 
 ---
 
 ### Security
 
-- Authentication and Authorization with Spring Security
-- Passwords encrypted (PasswordEncoder)
-- Protected sensitive endpoints
-- Profile-based permissions (in development)
+- Authentication and authorization with Spring Security
+- Encrypted passwords (PasswordEncoder)
+- Sensitive endpoints protected
+- Role-based permissions (in development)
 
-![Password Encryption](./src/assets/captura31.png)
+![Encrypted passwords](./src/assets/captura25.png)
 
 ---
 
@@ -191,11 +197,11 @@ Containerized with **Docker** and deployed on **AWS EC2**, ensuring portability 
 
 - **User** 1 — * **Order** (A user can have multiple orders)
 - **Order** 1 — * **OrderItem** (Each order has multiple items)
-- **OrderItem** * — 1 **Product** (An item always links to a product)
-- **Order** 1 — 1 **Payment** (Unique payment per order)
-- **Product** * — * **Category** (Many-to-many)
+- **OrderItem** * — 1 **Product** (An item always points to a product)
+- **Order** 1 — 1 **Payment** (Exclusive payment per order)
+- **Product** * — * **Category** (Many to many)
 
-![Domain Diagram](./src/assets/captura25.png)
+![Domain Diagram](./src/assets/captura31.png)
 
 ---
 
@@ -207,29 +213,29 @@ Containerized with **Docker** and deployed on **AWS EC2**, ensuring portability 
 
 ### Tests
 
-- Test coverage for controllers and services (JUnit, Mockito)
+- Coverage for controllers and services (JUnit, Mockito)
 - Unit tests for User, Order, Product, and Category
-- Simulation of requests and business flow validation
+- Request simulation and business logic flow checks
 
 ---
 
-### Running Locally
+### How to Run Locally
 
-#### Via Java/Maven
+#### 1️⃣ Using Java/Maven
 
 1. Clone the repository  
-2. Requirements: Java 17+ and Maven  
+2. Requirements: Java 17+ and Maven installed  
 3. Run:  
    ```sh
    mvn spring-boot:run
    ```
-4. Access H2 database:  
+4. Access the H2 database at:  
    [http://localhost:8080/h2-console](http://localhost:8080/h2-console)  
    - JDBC URL: `jdbc:h2:mem:testdb`
    - User: `root`
    - Password: `root`
 
-#### Via Docker
+#### Using Docker
 
 1. Build the image:  
    ```sh
@@ -239,22 +245,22 @@ Containerized with **Docker** and deployed on **AWS EC2**, ensuring portability 
    ```sh
    docker run -p 8080:8080 order-system-api
    ```
-3. Access Swagger and endpoints:  
+3. Access Swagger and endpoints at:  
    [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
 
-> The project is already deployed on AWS EC2, proving its scalability and production readiness.
+> The project has already been successfully deployed to AWS EC2, proving its scalability.
 
 ---
 
-### Observations & Learnings
+### Notes & Key Learnings
 
-- **Architecture & Best Practices:** Layered design, use of DTOs to protect entities and decouple layers.
-- **Exception Handling:** Centralized error handling with clear messages (including auth/validation errors).
-- **Security:** Password encryption, secured endpoints, secure password update via DTO.
-- **Complex Relationships:** 1–*, *–1, many-to-many with JPA/Hibernate, composite PKs, Collections.
-- **Tests:** Coverage for services/controllers (JUnit 5 and Mockito).
-- **Containerization/Deployment:** Efficient Dockerfile, environment setup, AWS EC2 deployment.
-- **DevOps:** Integration of Spring Boot, Docker, AWS, solving environment and network challenges.
+- **Architecture and best practices:** Layered design, DTOs for protection and decoupling.
+- **Exception handling:** Centralized, clear messages (including authentication, authorization, and validation errors).
+- **Security:** Password encryption, secure update via DTO, protected endpoints.
+- **Complex relationships:** 1–*, *–1 and many-to-many with JPA/Hibernate, composite PKs, Collections.
+- **Testing:** Service/controller coverage with JUnit 5 and Mockito.
+- **Containerization & deploy:** Efficient Dockerfile, configurations, AWS EC2 deployment.
+- **DevOps:** Spring Boot, Docker, and AWS integration, environment and network issue troubleshooting.
 
 ---
 
@@ -262,4 +268,4 @@ Containerized with **Docker** and deployed on **AWS EC2**, ensuring portability 
 
 - **Diego Melo Bezerra dos Santos**
 - [diegobrsantosdev@gmail.com](mailto:diegobrsantosdev@gmail.com)
-- [GitHub](https://github.com/seuusuario)
+- [GitHub](https://github.com/diegobrsantosdev)
