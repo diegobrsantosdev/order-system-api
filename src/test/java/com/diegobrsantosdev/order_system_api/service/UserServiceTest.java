@@ -35,7 +35,7 @@ public class UserServiceTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        user = new User(1L, "Diego Teste","testdiegod@gmail.com", "99999922","123456test");
+        user = new User(1L, "Diego Teste","testdiegod@gmail.com", "99999922","123456test", "addresstest");
     }
 
     //Find by id
@@ -87,7 +87,7 @@ public class UserServiceTest {
 
     @Test
     void testUpdate() {
-        User updatedUser = new User(null, "Diego Silva", "testdiegod@gmail.com", "99999922", "123456test");
+        User updatedUser = new User(null, "Diego Silva", "testdiegod@gmail.com", "99999922", "123456test", "addresstest");
         when(repository.findById(1L)).thenReturn(Optional.of(user));
         when(repository.save(any(User.class))).thenReturn(updatedUser);
         User result = service.update(1L, updatedUser);
@@ -115,8 +115,8 @@ public class UserServiceTest {
         String newPassword = "newpass";
         user.setPassword("oldpass"); // senha atual do user
         when(repository.findById(user.getId())).thenReturn(Optional.of(user));
-        when(passwordEncoder.matches(oldPassword, "oldpass")).thenReturn(true); // Simula a verificação da senha antiga
-        when(passwordEncoder.encode(newPassword)).thenReturn("encodedNewPass");  // Nova senha codificada
+        when(passwordEncoder.matches(oldPassword, "oldpass")).thenReturn(true);
+        when(passwordEncoder.encode(newPassword)).thenReturn("encodedNewPass");
         when(repository.save(user)).thenReturn(user);
 
         service.updatePassword(user.getId(), oldPassword, newPassword);

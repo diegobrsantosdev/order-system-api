@@ -22,8 +22,11 @@ public class UserInsertDTO {
     @NotBlank(message = "Password is mandatory")
     private String password;
 
+    @NotBlank(message = "Adress is mandatory")
+    private String address;
+
     public User toEntity() {
-        return new User(null, name, email, phone, password);
+        return new User(null, name, email, phone, password, address);
     }
 
 }

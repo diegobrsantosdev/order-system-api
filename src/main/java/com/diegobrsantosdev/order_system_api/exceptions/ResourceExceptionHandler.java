@@ -20,6 +20,21 @@ public class ResourceExceptionHandler {
         return ResponseEntity.status(status).body(err);
     }
 
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public ResponseEntity<StandardError> usernameNotFound(UsernameNotFoundException e, HttpServletRequest request){
+        String error = "User not found";
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        StandardError err = new StandardError(
+                Instant.now(),
+                status.value(),
+                error,
+                e.getMessage(),
+                request.getRequestURI()
+        );
+        return ResponseEntity.status(status).body(err);
+    }
+
+
     @ExceptionHandler(DatabaseException.class)
     public ResponseEntity<StandardError> database(DatabaseException e, HttpServletRequest request){
         String error = "Database error";
@@ -43,11 +58,34 @@ public class ResourceExceptionHandler {
         HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
         StringBuilder sb = new StringBuilder();
         e.getBindingResult().getFieldErrors().forEach(
-                err -> sb.append(err.getField()).append(": ").append(err.getDefaultMessage()).append("; "));
-        StandardError err = new StandardError(
-                Instant.now(), status.value(), error, sb.toString(), request.getRequestURI());
+                err -> sb.append(err.getField()).append(": ").append(err.getDefaultMessage()).append("; ")
+        );
+        StandardError err = new StandardError();
+        err.setTimestamp(Instant.now());
+        err.setStatus(status.value());
+        err.setError(error);
+        err.setMessage(sb.toString());
+        err.setPath(request.getRequestURI());
         return ResponseEntity.status(status).body(err);
     }
 
+    @ExceptionHandler(InvalidCredentialsException.class)
+    public ResponseEntity<StandardError> invalidCredentials(
+            InvalidCredentialsException e,
+            HttpServletRequest request) {
+
+        String error = "Authentication error";
+        HttpStatus status = HttpStatus.UNAUTHORIZED;
+
+        StandardError err = new StandardError(
+                Instant.now(),
+                status.value(),
+                error,
+                e.getMessage(),
+                request.getRequestURI()
+        );
+
+        return ResponseEntity.status(status).body(err);
+    }
 
 }

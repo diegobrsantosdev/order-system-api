@@ -27,11 +27,16 @@ public class UserDTO {
     @NotBlank(message = "Phone is mandatory")
     private String phone;
 
+    @NotBlank(message = "Adress is mandatory")
+    private String address;
+
+
     public UserDTO(User entity) {
         this.id = entity.getId();
         this.name = entity.getName();
         this.email = entity.getEmail();
         this.phone = entity.getPhone();
+        this.address = entity.getAddress();
     }
 
     public User toEntity() {
@@ -40,6 +45,7 @@ public class UserDTO {
         user.setName(this.name);
         user.setEmail(this.email);
         user.setPhone(this.phone);
+        user.setAddress(this.address);
         return user;
     }
 }

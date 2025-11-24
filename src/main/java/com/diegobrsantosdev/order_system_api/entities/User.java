@@ -30,18 +30,20 @@ public class User implements Serializable {
     private String email;
     private String phone;
     private String password;
+    private String address;
 
     @OneToMany(mappedBy = "client")
     @Setter(AccessLevel.NONE)
     private List<Order> orders = new ArrayList<>();
 
     // Construtor without 'orders'
-    public User(Long id, String name, String email, String phone, String password) {
+    public User(Long id, String name, String email, String phone, String password, String address) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.password = password;
+        this.address = address;
     }
 
 }

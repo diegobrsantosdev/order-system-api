@@ -50,8 +50,8 @@ public class TestConfig implements CommandLineRunner {
         Category cat3 = new Category(null, "Computers");
 
 
-        User u1 = new User(null, "Daniel Pereira Santos", "danielpereiras@gmail.com", "81986858382", passwordEncoder.encode("123456"));
-        User u2 = new User(null, "Angelica Maria Alencar", "angelicamaria1@gmail.com", "81958493969", passwordEncoder.encode("123456"));
+        User u1 = new User(null, "Daniel Pereira Santos", "danielpereiras@gmail.com", "81986858382", passwordEncoder.encode("123456"),"Rua das flores, 121, São Paulo, SP");
+        User u2 = new User(null, "Angelica Maria Alencar", "angelicamaria1@gmail.com", "81958493969", passwordEncoder.encode("123456"), "Avenida oito, 250, Recife, PE");
 
 
         Order o1 = new Order(null, Instant.parse("2019-06-20T19:53:07Z"), OrderStatus.PAID, u1);

@@ -31,7 +31,7 @@ class UserControllerTest {
 
     @Test
     void testFindById() throws Exception {
-        User user = new User(1L, "Diego", "diego@email.com", "11999999999", "senha");
+        User user = new User(1L, "Diego", "diego@email.com", "11999999999", "senha", "adress");
         Mockito.when(userService.findById(1L)).thenReturn(user);
 
         mockMvc.perform(get("/users/1"))
@@ -42,7 +42,7 @@ class UserControllerTest {
 
     @Test
     void testInsert() throws Exception {
-        User user = new User(2L, "Maria", "maria@email.com", "111111111", "senha");
+        User user = new User(2L, "Maria", "maria@email.com", "111111111", "senha", "address");
         Mockito.when(userService.insert(any(User.class))).thenReturn(user);
 
         String json = """
@@ -51,6 +51,7 @@ class UserControllerTest {
     "email":"maria@email.com",
     "phone":"111111111",
     "password":"senha"
+    "address":"address"
 }
 """;
         mockMvc.perform(post("/users")

@@ -1,9 +1,12 @@
 package com.diegobrsantosdev.order_system_api.services;
 import com.diegobrsantosdev.order_system_api.entities.User;
 import com.diegobrsantosdev.order_system_api.exceptions.IncorrectPasswordException;
+import com.diegobrsantosdev.order_system_api.exceptions.UsernameNotFoundException;
 import com.diegobrsantosdev.order_system_api.repositories.UserRepository;
 import com.diegobrsantosdev.order_system_api.exceptions.DatabaseException;
 import com.diegobrsantosdev.order_system_api.exceptions.ResourceNotFoundException;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,6 +30,13 @@ public class UserService {
         Optional<User> obj = repository.findById(id);
         return obj.orElseThrow(() -> new ResourceNotFoundException("User not found. Id: " + id));
     }
+
+    public User findByEmail(String email) {
+        return repository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException(email));
+    }
+
+
 
     public User insert(User obj) {
         obj.setPassword(passwordEncoder.encode(obj.getPassword()));
@@ -68,4 +78,10 @@ public class UserService {
 
     }
 
+    public boolean existsByEmail(String email) {
+        return repository.existsByEmail(email);
+    }
+    public User save(User user) {
+        return repository.save(user);
+    }
 }
