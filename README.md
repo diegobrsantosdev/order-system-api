@@ -44,7 +44,8 @@ O projeto também foi conteinerizado com **Docker** e implantado na **AWS EC2**.
 ---
 
 ### Postman example
-![Postman response](./src/assets/captura30.png)
+![Postman response](https://diegobrsantosdev.github.io/order-system-api/src/assets/captura30.png)
+
 
 ---
 
@@ -55,7 +56,8 @@ O projeto também foi conteinerizado com **Docker** e implantado na **AWS EC2**.
 - Endpoints sensíveis protegidos
 - Permissão diferenciada por perfil (em desenvolvimento)
 
-![Senhas criptografadas](./src/assets/captura25.png)
+![Senhas criptografadas](https://diegobrsantosdev.github.io/order-system-api/src/assets/captura25.png)
+
 
 ---
 
@@ -67,13 +69,15 @@ O projeto também foi conteinerizado com **Docker** e implantado na **AWS EC2**.
 - **Order** 1 — 1 **Payment** (Pagamento exclusivo por pedido)
 - **Product** * — * **Category** (Muitos para muitos)
 
-![Diagrama do Domínio](./src/assets/captura31.png)
+![Diagrama do Domínio](https://diegobrsantosdev.github.io/order-system-api/src/assets/captura31.png)
+
 
 ---
 
 ### Endpoints Principais
 
-![Endpoints](./src/assets/captura29.png)
+![Endpoints](https://diegobrsantosdev.github.io/order-system-api/src/assets/captura29.png)
+
 
 ---
 
@@ -178,7 +182,8 @@ It is also containerized with **Docker** and deployed to **AWS EC2**.
 ---
 
 ### Postman example
-![Postman response](./src/assets/captura30.png)
+![Postman response](https://diegobrsantosdev.github.io/order-system-api/src/assets/captura30.png)
+
 
 ---
 
@@ -189,7 +194,7 @@ It is also containerized with **Docker** and deployed to **AWS EC2**.
 - Sensitive endpoints protected
 - Role-based permissions (in development)
 
-![Encrypted passwords](./src/assets/captura25.png)
+![Encrypted passwords](https://diegobrsantosdev.github.io/order-system-api/src/assets/captura25.png)
 
 ---
 
@@ -201,13 +206,13 @@ It is also containerized with **Docker** and deployed to **AWS EC2**.
 - **Order** 1 — 1 **Payment** (Exclusive payment per order)
 - **Product** * — * **Category** (Many to many)
 
-![Domain Diagram](./src/assets/captura31.png)
+![Domain Diagram](https://diegobrsantosdev.github.io/order-system-api/src/assets/captura31.png)
 
 ---
 
 ### Main Endpoints
 
-![Endpoints](./src/assets/captura29.png)
+![Endpoints](https://diegobrsantosdev.github.io/order-system-api/src/assets/captura29.png)
 
 ---
 
