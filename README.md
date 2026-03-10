@@ -91,7 +91,7 @@ O projeto também foi conteinerizado com **Docker** e implantado na **AWS EC2**.
 
 ### Como Executar Localmente
 
-#### 1️⃣ Via Java/Maven
+#### Via Java/Maven
 
 1. Clone o repositório  
 2. Requisitos: Java 17+ e Maven instalados  
@@ -226,7 +226,7 @@ It is also containerized with **Docker** and deployed to **AWS EC2**.
 
 ### How to Run Locally
 
-#### 1️⃣ Using Java/Maven
+#### Using Java/Maven
 
 1. Clone the repository  
 2. Requirements: Java 17+ and Maven installed  
